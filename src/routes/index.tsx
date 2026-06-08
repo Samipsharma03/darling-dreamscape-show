@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
 import FallingPetals from "../components/birthday/FallingPetals";
 import Hero from "../components/birthday/Hero";
-import LyricsExperience from "../components/birthday/LyricsExperience";
 import PhotoGallery from "../components/birthday/PhotoGallery";
 import VideoSection from "../components/birthday/VideoSection";
 import FinalMessage from "../components/birthday/FinalMessage";
@@ -11,9 +10,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Happy Birthday, Prativa 💗" },
-      { name: "description", content: "A little world made of memories, music and love — happy birthday." },
+      { name: "description", content: "A little world made of memories and love — happy birthday." },
       { property: "og:title", content: "Happy Birthday, Prativa 💗" },
-      { property: "og:description", content: "A little world made of memories, music and love." },
+      { property: "og:description", content: "A little world made of memories and love." },
     ],
   }),
   component: Index,
@@ -32,7 +31,6 @@ function Index() {
       <div className="relative z-10">
         <Hero onBegin={scrollToStory} />
         <div ref={storyRef}>
-          <LyricsExperience />
           <PhotoGallery />
           <VideoSection />
           <FinalMessage />
