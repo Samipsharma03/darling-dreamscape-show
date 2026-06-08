@@ -92,7 +92,7 @@ export default function LyricsExperience() {
         className="mt-14 flex items-center gap-3 rounded-full px-9 py-4 font-semibold text-primary-foreground shadow-[var(--shadow-glow)]"
         style={{ background: "var(--gradient-romance)" }}
       >
-        {playing ? "❚❚ Pause" : "▶ Play our song"}
+        {playing ? "❚❚ Pause" : "▶ Play this song"}
       </motion.button>
 
       <AnimatePresence>
