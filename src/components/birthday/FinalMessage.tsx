@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
 
 export default function FinalMessage() {
-  const message = `From the bottom of my heart, I'm yours — today and every day after.
-Thank you for being the person watching over my dreams,
-the calm in my chaos, and the reason every ordinary day feels like a celebration.
-Happy birthday, my bhadruu. Here's to us, always.`;
+  const message = `You are the person I think about when the world goes quiet.
+The one who makes ordinary days feel like something worth remembering.
+I don't know where this road leads, but I know I want you in every chapter ahead.
+Happy birthday, my bhadruu. You deserve the entire universe.`;
 
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center px-6 py-24 text-center">
@@ -26,7 +26,7 @@ Happy birthday, my bhadruu. Here's to us, always.`;
           {message}
         </p>
         <p className="mt-10 text-sm uppercase tracking-[0.4em] text-secondary">
-          with all my love
+          hoping for more
         </p>
       </motion.div>
     </section>

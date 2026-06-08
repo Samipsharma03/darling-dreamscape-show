@@ -12,7 +12,7 @@ export default function VideoSection() {
         viewport={{ once: true }}
         className="mb-12 text-center font-display text-4xl italic text-accent sm:text-5xl"
       >
-        Us, in motion
+        You, in motion
       </motion.h2>
 
       <motion.div

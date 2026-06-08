@@ -5,8 +5,8 @@ import photo3 from "../../assets/photo-3.jpg";
 
 // Swap these with her real pictures (drop them in src/assets and update the imports).
 const photos = [
-  { src: photo1, caption: "every sunset is better with you", w: 1024, h: 1024 },
-  { src: photo2, caption: "our little moments", w: 1024, h: 1024 },
+  { src: photo1, caption: "every sunset reminds me of you", w: 1024, h: 1024 },
+  { src: photo2, caption: "the little moments I keep", w: 1024, h: 1024 },
   { src: photo3, caption: "you, in full bloom", w: 1024, h: 1280 },
 ];
 
