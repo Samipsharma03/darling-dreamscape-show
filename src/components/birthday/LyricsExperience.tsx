@@ -56,7 +56,7 @@ export default function LyricsExperience() {
         viewport={{ once: true }}
         className="mb-2 text-xs uppercase tracking-[0.4em] text-secondary"
       >
-        Our song
+        A song that reminds me of you
       </motion.p>
       <h2 className="mb-12 font-display text-3xl italic text-accent">
         Line Without a Hook — Ricky Montgomery
