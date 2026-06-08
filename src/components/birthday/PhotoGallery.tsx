@@ -36,135 +36,107 @@ const localPhotos: MediaItem[] = [
   { src: photo3, caption: "you, in full bloom", type: "photo", orientation: "portrait" },
 ];
 
-// Add your videos to public/videos/ and list them here
 const videos: MediaItem[] = [
   { src: "/videos/her.mp4", caption: "you, in motion", type: "video", orientation: "landscape" },
-  { src: "/videos/her2.mp4", caption: "unscripted moments", type: "video", orientation: "portrait" },
 ];
 
 const allMedia: MediaItem[] = [
   ...localPhotos,
-  ...pexelsPhotos.slice(0, 3),
-  ...videos.slice(0, 1),
-  ...pexelsPhotos.slice(3, 7),
-  ...videos.slice(1),
-  ...pexelsPhotos.slice(7),
+  ...pexelsPhotos.slice(0, 2),
+  ...videos,
+  ...pexelsPhotos.slice(2, 6),
+  ...pexelsPhotos.slice(6),
 ];
 
-function ParallaxImage({ item, index }: { item: MediaItem; index: number }) {
+const interludes = [
+  "some moments live in my chest forever",
+  "you make the ordinary extraordinary",
+  "every frame, a love letter",
+];
+
+function ParallaxMedia({ item, variant }: { item: MediaItem; variant: "full" | "standard" | "offset" }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [-60, 60]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.05, 1.15]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const fadeIn = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
-  const isPortrait = item.orientation === "portrait";
-  const isFullBleed = index % 5 === 0;
-  const isSide = !isFullBleed && index % 3 === 0;
-
-  return (
-    <div
-      ref={ref}
-      className={`relative overflow-hidden ${
-        isFullBleed
-          ? "h-[85vh] w-full"
-          : isSide
-            ? isPortrait
-              ? "h-[70vh] w-full max-w-lg mx-auto"
-              : "h-[60vh] w-full max-w-4xl mx-auto"
-            : isPortrait
-              ? "h-[75vh] w-full max-w-2xl mx-auto"
-              : "h-[65vh] w-full max-w-5xl mx-auto"
-      }`}
-    >
-      <motion.div style={{ y, scale }} className="absolute inset-0">
-        <img
-          src={item.src}
-          alt={item.caption}
-          loading="lazy"
-          className="h-full w-full object-cover"
-        />
-      </motion.div>
-
-      <motion.div style={{ opacity }} className="relative z-10 flex h-full items-end">
-        <div className="w-full bg-gradient-to-t from-background/90 via-background/40 to-transparent p-8 md:p-12">
-          <p className="font-display text-xl italic text-foreground md:text-2xl drop-shadow-lg">
-            {item.caption}
-          </p>
-        </div>
-      </motion.div>
-
-      {/* Decorative frame corners */}
-      <div className="pointer-events-none absolute inset-4 z-10 rounded-2xl border border-blush/15" />
-    </div>
-  );
-}
-
-function ParallaxVideo({ item, index }: { item: MediaItem; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
-
+  const isFull = variant === "full";
+  const isOffset = variant === "offset";
   const isPortrait = item.orientation === "portrait";
 
+  const containerClass = isFull
+    ? "h-screen w-full"
+    : isOffset
+      ? isPortrait
+        ? "h-[70vh] w-[85%] max-w-md ml-auto mr-8 md:mr-16"
+        : "h-[60vh] w-[90%] max-w-4xl mr-auto ml-8 md:ml-16"
+      : isPortrait
+        ? "h-[75vh] w-[90%] max-w-lg mx-auto"
+        : "h-[65vh] w-[95%] max-w-5xl mx-auto";
+
   return (
-    <div
-      ref={ref}
-      className={`relative overflow-hidden ${
-        isPortrait
-          ? "h-[85vh] w-full max-w-lg mx-auto"
-          : "h-[80vh] w-full max-w-5xl mx-auto"
-      }`}
-    >
-      <motion.div style={{ y }} className="absolute inset-0 scale-110">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover"
+    <div ref={ref} className={`${containerClass} relative my-4 md:my-8`}>
+      <div className="absolute inset-0 overflow-hidden rounded-2xl md:rounded-3xl">
+        <motion.div style={{ y }} className="absolute inset-[-10%] h-[120%] w-[120%]">
+          {item.type === "video" ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-full w-full object-cover"
+            >
+              <source src={item.src} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={item.src}
+              alt={item.caption}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          )}
+        </motion.div>
+
+        {/* Dark overlay gradient for caption readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-background/20" />
+
+        {/* Caption */}
+        <motion.div
+          style={{ opacity: fadeIn }}
+          className="absolute inset-x-0 bottom-0 p-6 md:p-10"
         >
-          <source src={item.src} type="video/mp4" />
-        </video>
-      </motion.div>
-
-      <motion.div style={{ opacity }} className="relative z-10 flex h-full items-end">
-        <div className="w-full bg-gradient-to-t from-background/90 via-background/40 to-transparent p-8 md:p-12">
-          <p className="font-display text-xl italic text-foreground md:text-2xl drop-shadow-lg">
+          <p className="font-display text-lg italic text-foreground/90 md:text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
             {item.caption}
           </p>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
-      <div className="pointer-events-none absolute inset-4 z-10 rounded-2xl border border-blush/15" />
+      {/* Subtle inner glow border */}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-blush/10" />
     </div>
   );
 }
 
-function InterludeText({ text }: { text: string }) {
+function Interlude({ text }: { text: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "center center", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [40, 0, 0, -40]);
+  const opacity = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [30, 0, 0, -30]);
 
   return (
-    <div ref={ref} className="flex min-h-[50vh] items-center justify-center px-6">
+    <div ref={ref} className="flex min-h-[45vh] items-center justify-center px-8 my-4">
       <motion.p
         style={{ opacity, y }}
-        className="text-gradient-romance font-display text-3xl italic text-center md:text-5xl max-w-3xl"
+        className="text-gradient-romance font-display text-2xl italic text-center md:text-4xl lg:text-5xl max-w-2xl leading-snug"
       >
         {text}
       </motion.p>
@@ -172,53 +144,40 @@ function InterludeText({ text }: { text: string }) {
   );
 }
 
-const interludes = [
-  "some moments live in my chest forever",
-  "you make the ordinary extraordinary",
-  "every frame, a love letter",
-  "I'd choose you in every lifetime",
-];
-
 export default function PhotoGallery() {
   return (
-    <section className="relative py-12">
-      <motion.h2
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mb-4 text-center font-display text-5xl italic text-accent md:text-7xl"
-      >
-        Every picture is a letter to you
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        className="mb-20 text-center text-sm uppercase tracking-[0.4em] text-muted-foreground"
-      >
-        scroll slowly
-      </motion.p>
-
-      <div className="flex flex-col gap-4">
-        {allMedia.map((item, i) => {
-          const interludeIdx = i > 0 && i % 5 === 0 ? Math.floor(i / 5) - 1 : -1;
-
-          return (
-            <div key={i}>
-              {interludeIdx >= 0 && interludeIdx < interludes.length && (
-                <InterludeText text={interludes[interludeIdx]} />
-              )}
-              {item.type === "video" ? (
-                <ParallaxVideo item={item} index={i} />
-              ) : (
-                <ParallaxImage item={item} index={i} />
-              )}
-            </div>
-          );
-        })}
+    <section className="relative py-8 md:py-16">
+      <div className="mb-16 text-center md:mb-24">
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-gradient-romance font-display text-4xl italic sm:text-5xl md:text-6xl"
+        >
+          Every picture is a letter to you
+        </motion.h2>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: 0.3 }}
+          className="mx-auto mt-6 h-[1px] w-32 bg-gradient-to-r from-transparent via-blush to-transparent"
+        />
       </div>
+
+      {allMedia.map((item, i) => {
+        const variant = i % 5 === 0 ? "full" : i % 3 === 0 ? "offset" : "standard";
+        const interludeIdx = i > 0 && i % 6 === 0 ? Math.floor(i / 6) - 1 : -1;
+
+        return (
+          <div key={i}>
+            {interludeIdx >= 0 && interludeIdx < interludes.length && (
+              <Interlude text={interludes[interludeIdx]} />
+            )}
+            <ParallaxMedia item={item} variant={variant} />
+          </div>
+        );
+      })}
     </section>
   );
 }
