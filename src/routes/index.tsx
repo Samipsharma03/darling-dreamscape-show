@@ -3,7 +3,6 @@ import { useRef } from "react";
 import FallingPetals from "../components/birthday/FallingPetals";
 import Hero from "../components/birthday/Hero";
 import PhotoGallery from "../components/birthday/PhotoGallery";
-import VideoSection from "../components/birthday/VideoSection";
 import FinalMessage from "../components/birthday/FinalMessage";
 
 export const Route = createFileRoute("/")({
@@ -32,7 +31,6 @@ function Index() {
         <Hero onBegin={scrollToStory} />
         <div ref={storyRef}>
           <PhotoGallery />
-          <VideoSection />
           <FinalMessage />
         </div>
       </div>
