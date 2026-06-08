@@ -56,7 +56,7 @@ export default function LyricsExperience() {
         viewport={{ once: true }}
         className="mb-2 text-xs uppercase tracking-[0.4em] text-secondary"
       >
-        Our song
+        A song that reminds me of you
       </motion.p>
       <h2 className="mb-12 font-display text-3xl italic text-accent">
         Line Without a Hook — Ricky Montgomery
@@ -92,7 +92,7 @@ export default function LyricsExperience() {
         className="mt-14 flex items-center gap-3 rounded-full px-9 py-4 font-semibold text-primary-foreground shadow-[var(--shadow-glow)]"
         style={{ background: "var(--gradient-romance)" }}
       >
-        {playing ? "❚❚ Pause" : "▶ Play our song"}
+        {playing ? "❚❚ Pause" : "▶ Play this song"}
       </motion.button>
 
       <AnimatePresence>
