@@ -1,6 +1,5 @@
 // Synced lyrics for "Line Without a Hook" — Ricky Montgomery
-// time = seconds into the song when the line should highlight.
-// Adjust these timings to match your uploaded audio (public/audio/song.mp3).
+// Adjust timings to match your uploaded audio (public/audio/song.mp3).
 export interface LyricLine {
   time: number;
   text: string;
@@ -9,15 +8,21 @@ export interface LyricLine {
 
 export const lyrics: LyricLine[] = [
   { time: 0, text: "Oh, darling…" },
-  { time: 4, text: "I will be loving you 'til we're seventy" },
-  { time: 9, text: "And, baby, my heart could still fall as hard at twenty-three" },
-  { time: 15, text: "And I'm writing down a list of all the things I want for you" },
   { time: 21, text: "Darling, when I'm fast asleep", highlight: true },
   { time: 25, text: "I've seen this person watching me", highlight: true },
-  { time: 30, text: "Saying, \"Is it worth it? Is it worth it?\"" },
-  { time: 35, text: "Tell me, is it worth it?" },
-  { time: 40, text: "I don't wanna be your friend" },
-  { time: 45, text: "I wanna kiss your neck" },
-  { time: 50, text: "From the bottom of my heart, I'm yours" },
-  { time: 56, text: "Happy birthday, my love." },
+  { time: 30, text: 'Saying, "Is it worth it? Is it worth it?"' },
+  { time: 35, text: 'Tell me, is it worth it?' },
+  { time: 39, text: "'Cause there is something, and there is nothing" },
+  { time: 43, text: 'There is nothing in between' },
+  { time: 47, text: 'And in my eyes, there is a tiny dancer' },
+  { time: 51, text: "Watching over me, he's singing" },
+  { time: 55, text: '"She\'s a, she\'s a lady, and I am just a boy"' },
+  { time: 59, text: '"She\'s a, she\'s a lady, and I am just a line without a hook"' },
+  { time: 64, text: "Oh, baby, I am a wreck when I'm without you" },
+  { time: 69, text: 'I need you here to stay' },
+  { time: 73, text: 'Broke all my bones that day I found you' },
+  { time: 77, text: 'Crying at the lake' },
+  { time: 81, text: "Was it something I said to make you feel like you're a burden? Oh" },
+  { time: 87, text: 'And if I could take it all back' },
+  { time: 91, text: 'I swear that I would pull you from the tide' },
 ];
