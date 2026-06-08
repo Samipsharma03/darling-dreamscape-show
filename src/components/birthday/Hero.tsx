@@ -29,7 +29,7 @@ export default function Hero({ onBegin }: { onBegin: () => void }) {
         transition={{ duration: 1.2, delay: 1 }}
         className="mt-6 max-w-md font-display text-2xl italic text-accent"
       >
-        my bhadruu, my favorite person
+        my bhadruu, the one who fills my thoughts
       </motion.p>
 
       <motion.button
@@ -42,7 +42,7 @@ export default function Hero({ onBegin }: { onBegin: () => void }) {
         className="mt-12 rounded-full px-10 py-4 text-base font-semibold text-primary-foreground shadow-[var(--shadow-glow)]"
         style={{ background: "var(--gradient-romance)" }}
       >
-        Begin our story ♡
+        This is for you ♡
       </motion.button>
 
       <motion.div
